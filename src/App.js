@@ -12,6 +12,7 @@ function App() {
   useEffect(() => {
       $.get('/categories', {}, (res) => {
           console.log(res);
+          setAppClass('App');
       });
   });
 

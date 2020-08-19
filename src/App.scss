@@ -1,5 +1,7 @@
 .App {
-  &.hidden {
+  transition: opacity 500ms ease-in-out;
 
+  &.hidden {
+    opacity: 0;
   }
 }
