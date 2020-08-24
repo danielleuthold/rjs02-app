@@ -5,16 +5,16 @@ import Aside from './pagecomponents/Aside';
 import Main from './pagecomponents/Main';
 import Footer from './pagecomponents/Footer';
 import $ from 'jquery';
+import axios from 'axios';
 
 function App() {
   const [appClass, setAppClass] = useState('App hidden');
 
   useEffect(() => {
-      $.get('/categories', {}, (res) => {
+      axios.get('https://rjs.photonbeam.ch/bio').then((res) => {
           console.log(res);
-          // setAppClass(...)
+          setAppClass('App');
       });
-      setAppClass('App');
   });
 
   return (
