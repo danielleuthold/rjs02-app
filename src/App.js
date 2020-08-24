@@ -4,26 +4,37 @@ import Nav from './pagecomponents/Nav';
 import Aside from './pagecomponents/Aside';
 import Main from './pagecomponents/Main';
 import Footer from './pagecomponents/Footer';
-import $ from 'jquery';
+import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
+import {api} from './config.js';
 
-function App() {
+function App(props) {
   const [appClass, setAppClass] = useState('App hidden');
+  const [bio, setBio] = useState(false);
+  const [categories, setCategories] = useState(false);
 
   useEffect(() => {
-      axios.get('https://rjs.photonbeam.ch/bio').then((res) => {
+      axios.get(api + '/categories').then((res) => {
           console.log(res);
           setAppClass('App');
+          setCategories(res.data);
       });
-  });
+      axios.get(api + '/bio').then(res => {
+          console.log(res);
+          setBio(res.data);
+      });
+  }, [appClass]);
 
   return (
-    <div className={appClass}>
-      <Nav />
-      <Aside />
-      <Main />
-      <Footer />
-    </div>
+      <Router>
+          <div className={appClass}>
+              <Nav categories={categories} />
+              <Aside bio={bio} />
+              <Main categories={categories} />
+              <Footer />
+          </div>
+      </Router>
+
   );
 }
 
